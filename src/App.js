@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ToDoList from './ToDoList'
+import ToDoItems from './TodoItems'
 
 class App extends Component {
 
@@ -14,10 +15,10 @@ class App extends Component {
 
   handleInput = e => {
     // console.log('Hello Input');
-    const lItemText= e.target.value;
-    const lCurrentItem = {text: lItemText, key: Date.now()}
+    const itemText= e.target.value;
+    const currentItem = {text: itemText, key: Date.now()}
     this.setState({
-      lCurrentItem,
+      currentItem,
     })
   }
 
@@ -33,8 +34,16 @@ class App extends Component {
         currentItem: {text: '', key: ''},
       })
     }
-
   }
+
+    deleteItem = key => {
+        const filteredItems = this.state.items.filter(item => {
+            return item.key !== key
+        })
+        this.setState({
+            items: filteredItems,
+        })
+    }
 
   inputElement =() =>{
     console.log('Hello inputElement');
@@ -43,12 +52,16 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-          <ToDoList
+            <ToDoList
               addItem={this.addItem}
               inputElement={this.inputElement}
               hangleInput={this.handleInput}
               currentItem={this.state.currentItem}
-          />
+            />
+            <ToDoItems
+                entries = {this.state.items}
+                deleteItem={this.deleteItem}
+            />
         </div>
     );
   }
