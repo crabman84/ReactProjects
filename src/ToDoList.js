@@ -1,9 +1,8 @@
 import React from 'react'
 
 class ToDoList extends React.Component{
-    constructor(props){
-        super(props);
-
+    componentDidUpdate(){
+        this.props.inputElement.current.focus();
     }
 
     render(){
